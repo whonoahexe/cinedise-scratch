@@ -1,0 +1,90 @@
+
+import Link from 'next/link';
+import { projects } from '@/data/projects';
+
+export default function SocialMediaPage() {
+    const socialProjects = projects.filter(p => p.category === 'Social Media');
+
+    return (
+        <>
+            {/* Page Header */}
+            <div id="page-header" className="ph-full ph-cap-xxlg ph-center ph-image-cropped ph-image-cover-2 ph-content-parallax">
+                <div className="page-header-inner tt-wrap">
+                    <div className="ph-image">
+                        <div className="ph-image-inner">
+                            <img src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/header.jpg" alt="Image" />
+                        </div>
+                    </div>
+
+                    <div className="ph-caption">
+                        <h1 className="ph-caption-title ph-appear">Social Media</h1>
+                        <div className="ph-caption-title-ghost ph-appear">Content</div>
+                        <div className="ph-caption-subtitle ph-appear">Selected Works</div>
+                    </div>
+                </div>
+
+                <a href="#page-content" className="scroll-down-circle" data-offset="30">
+                    <div className="sdc-inner ph-appear">
+                        <div className="sdc-icon"><i className="fas fa-chevron-down"></i></div>
+                        <svg viewBox="0 0 500 500">
+                            <defs>
+                                <path d="M50,250c0-110.5,89.5-200,200-200s200,89.5,200,200s-89.5,200-200,200S50,360.5,50,250" id="textcircle"></path>
+                            </defs>
+                            <text dy="30">
+                                <textPath xlinkHref="#textcircle">Scroll down - Scroll down -</textPath>
+                            </text>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+
+            {/* Page Content */}
+            <div id="page-content">
+                <div className="tt-section padding-bottom-xlg-150">
+                    <div className="tt-section-inner tt-wrap max-width-1400">
+                        <div className="portfolio-interactive pi-borders pi-compact pi-force-scroll">
+                            {socialProjects.map((project, index) => (
+                                <div key={project.slug} className="portfolio-interactive-item anim-skewinup" data-scroll-speed={index % 2 === 0 ? "3" : "2"}>
+                                    <Link href={`/${project.slug}`} className="pi-item-title-link">
+                                        <h2 className="pi-item-title">{project.title}</h2>
+                                        <div className="pi-item-hover-title">{project.title}</div>
+                                    </Link>
+                                    <div className="pi-item-category-wrap">
+                                        <div className="pi-item-category">{project.category}</div>
+                                    </div>
+                                    <figure className="pi-item-image cover-opacity-2">
+                                        {/* Check if the first gallery item is a video or image, or use headerImage if available */}
+                                        {project.galleryImages && project.galleryImages[0]?.endsWith('.mp4') ? (
+                                            <video autoPlay muted loop playsInline className="ph-video">
+                                                <source src={project.galleryImages[0]} type="video/mp4" />
+                                            </video>
+                                        ) : (
+                                            <img src={project.headerImage || project.galleryImages[0]} alt={project.title} />
+                                        )}
+                                    </figure>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="tt-section padding-bottom-xlg-150">
+                    <div className="tt-section-inner tt-wrap">
+                        <div className="tt-page-nav tt-pn-scroll">
+                            <Link href="/events" className="tt-pn-link anim-fadeinup">
+                                <div className="tt-pn-title">Next Category</div>
+                                <div className="tt-pn-hover-title">Events</div>
+                            </Link>
+
+                            <div className="tt-pn-subtitle anim-fadeinup">Explore More</div>
+
+                            <div className="tt-pn-image">
+                                <img src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/category-thumbnails/category-4.jpg" alt="image" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}

@@ -1,0 +1,173 @@
+/* Team Section Styles from index.html */
+.team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    position: relative;
+}
+
+.team-member {
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+    text-align: center;
+    position: relative;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.team-image-wrap {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.team-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.team-info {
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.team-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.team-role {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 10px 0;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effects */
+.team-member:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.team-member:hover .team-bio {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.team-member:hover .team-role {
+    color: #fff;
+}
+
+.team-grid:hover .team-member:not(:hover) {
+    opacity: 0.3;
+    transform: scale(0.95);
+}
+
+/* Modal Styles */
+.bio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bio-modal-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    color: #fff;
+    max-width: 500px;
+    width: 90%;
+}
+
+.bio-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.bio-modal-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.bio-modal-role {
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.bio-modal-bio {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .team-member {
+        min-width: 140px;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 992px) {
+    .team-member {
+        min-width: 120px;
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .team-member {
+        width: 100%;
+        max-width: none;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    .team-image-wrap {
+        height: 200px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .team-image-wrap {
+        height: 180px;
+    }
+}
