@@ -1,5 +1,7 @@
 import ProjectGrid from '@/components/ProjectGrid';
 import TeamGrid from '@/components/TeamGrid';
+import Brands from '@/components/Brands';
+import ContactCTA from '@/components/ContactCTA';
 
 export default function Home() {
   return (
@@ -42,7 +44,7 @@ export default function Home() {
       {/* Note: Original used duplicate id="page-header". Changed to class or just div to avoid ID conflict, though keeping classes for legacy JS. 
           Assuming legacy JS targets #page-header, having two might confuse it. 
           L330 in original was just another section. I'll use a unique ID but same classes. */}
-      <div className="ph-full ph-cap-xlg ph-image-cover-2 ph-content-parallax">
+      <div id="page-header-2" className="ph-full ph-cap-xlg ph-image-cover-2 ph-content-parallax bg-[#0a0a0a]">
         <div className="page-header-inner tt-wrap">
           <div className="ph-caption">
             <h1 className="ph-caption-title ph-appear max-width-1000" data-animate="fadeInUp" data-animate-delay="0.2">We design everything you think of.</h1>
@@ -52,7 +54,7 @@ export default function Home() {
 
       <div id="page-content">
         {/* Works Section */}
-        <div className="tt-section bg-white-accent-3 padding-top-xlg-150">
+        <div id="works" className="tt-section bg-white-accent-3 padding-top-xlg-150 !bg-[#121212]" style={{ scrollMarginTop: '100px' }} data-offset="100">
           <div className="tt-section-inner tt-wrap max-width-1700">
             <div className="tt-heading tt-heading-lg tt-heading-center margin-bottom-7-p anim-fadeinup">
               <h3 className="tt-heading-subtitle text-gray">Latest Projects</h3>
@@ -64,7 +66,7 @@ export default function Home() {
         </div>
 
         {/* Team Section */}
-        <div id="team" className="tt-section bg-white-accent-3 padding-top-xlg-150 padding-bottom-xlg-200">
+        <div id="team" className="tt-section bg-white-accent-3 padding-top-xlg-150 padding-bottom-xlg-200 !bg-[#121212]">
           <div className="tt-section-inner tt-wrap max-width-1700">
             <div className="tt-heading tt-heading-lg tt-heading-center margin-bottom-7-p anim-fadeinup">
               <h3 className="tt-heading-subtitle text-gray">Our Team</h3>
@@ -74,6 +76,12 @@ export default function Home() {
             <TeamGrid />
           </div>
         </div>
+
+        {/* Brands Section */}
+        <Brands />
+
+        {/* Contact CTA */}
+        <ContactCTA />
       </div>
     </>
   );

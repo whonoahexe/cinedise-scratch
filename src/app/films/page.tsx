@@ -1,7 +1,10 @@
+import BodyClassToggler from '@/components/BodyClassToggler';
+import ShareOverlay from '@/components/ShareOverlay';
+
 export default function FilmsPage() {
     return (
         <>
-            {/* Page Header */}
+            <BodyClassToggler className="made-with-love-on" />
             <div id="page-header" className="ph-full ph-bg-image ph-image-shadow ph-image-cover-5 ph-content-parallax">
                 <div className="page-header-inner tt-wrap">
                     <div className="ph-image">
@@ -66,15 +69,10 @@ export default function FilmsPage() {
                     </div>
                 </div>
 
-                <div className="ph-share">
-                    <div className="ph-share-trigger ph-appear">
-                        <div className="ph-share-text">Share</div>
-                        <div className="ph-share-icon magnetic-item"><i className="fas fa-share-alt"></i></div>
-                    </div>
-                </div>
+                <ShareOverlay />
             </div>
 
-            <div id="page-content">
+            <div id="page-content" className='!bg-[#0a0a0a]'>
                 <div className="tt-section padding-top-xlg-180 padding-left-sm-3-p padding-right-sm-3-p">
                     <div className="tt-section-inner tt-wrap">
                         <div className="tt-row">

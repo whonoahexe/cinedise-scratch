@@ -1,10 +1,13 @@
 "use client";
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const pathname = usePathname();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -38,7 +41,7 @@ export default function Header() {
                     </div>
 
                     <nav className={`tt-overlay-menu tt-ol-menu-center tt-ol-menu-count ${isMenuOpen ? 'is-open' : ''}`}>
-                        <div className="tt-ol-menu-holder">
+                        <div className="tt-ol-menu-holder !bg-[#0a0a0a]">
                             <div className="tt-ol-menu-inner tt-wrap">
                                 <div className="tt-ol-menu-content">
                                     <ul className="tt-ol-menu-list">
@@ -49,7 +52,7 @@ export default function Header() {
                                         </li>
                                         <li className="tt-ol-submenu-wrap">
                                             <div className="tt-ol-submenu-trigger">
-                                                <Link href="/#page-content" onClick={toggleMenu}>Portfolio</Link>
+                                                <Link href={pathname === '/' ? '#works' : '/#works'} onClick={toggleMenu}>Portfolio</Link>
                                             </div>
                                         </li>
                                         <li className="tt-ol-submenu-wrap">

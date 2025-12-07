@@ -37,7 +37,7 @@ const teamMembers = [
     {
         name: "Noah",
         role: "Motion & Web Designer",
-        bio: "Web/Motion Design.",
+        bio: "Motion Designer, Web Developer, and the unofficial \"Ease In, Ease Out\" philosopher of the team (seriously, he probably animates his own coffee refills). Fueled by creativity, caffeine, and the occasional \"wait, what does that Hindi word mean?\" moment, Noah keeps the ideas flowing smoother than his playback renders. When he's not designing magic, he's at home being bossed around by his two cats — because even the most productive guy needs supervisors.",
         image: "https://cinedise-video.s3.eu-north-1.amazonaws.com/public/team/Noah.jpg"
     }
 ];
@@ -45,18 +45,25 @@ const teamMembers = [
 export default function TeamGrid() {
     const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null);
 
+    const handleMemberClick = (member: typeof teamMembers[0]) => {
+        // Only open modal on mobile (below 768px matches CSS)
+        if (window.innerWidth <= 768) {
+            setSelectedMember(member);
+        }
+    };
+
     return (
         <>
             <div className="team-grid">
                 {teamMembers.map((member, index) => (
-                    <div key={index} className="team-member" onClick={() => setSelectedMember(member)}>
+                    <div key={index} className="team-member" onClick={() => handleMemberClick(member)}>
                         <div className="team-image-wrap">
                             <img src={member.image} alt={member.name} className="team-image" />
                         </div>
                         <div className="team-info">
                             <h3 className="team-name">{member.name}</h3>
                             <p className="team-role">{member.role}</p>
-                            {/* Desktop hover bio (hidden on mobile via CSS) */}
+                            {/* Desktop hover bio (Popout via CSS) */}
                             <div className="team-bio">{member.bio}</div>
                         </div>
                     </div>
@@ -64,7 +71,7 @@ export default function TeamGrid() {
             </div>
 
             {selectedMember && (
-                <div className="bio-modal" onClick={() => setSelectedMember(null)}>
+                <div className={`bio-modal ${selectedMember ? 'active' : ''}`} onClick={() => setSelectedMember(null)}>
                     <div className="bio-modal-content" onClick={(e) => e.stopPropagation()}>
                         <span className="bio-modal-close" onClick={() => setSelectedMember(null)}>&times;</span>
                         <h2 className="bio-modal-name">{selectedMember.name}</h2>

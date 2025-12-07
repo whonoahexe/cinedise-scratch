@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Cinedise Studio',
@@ -28,7 +28,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="/assets/css/helper.css" />
         <link rel="stylesheet" href="/assets/css/theme.css" />
       </head>
-      <body id="body" className={`${inter.className} tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor`}>
+      <body id="body" className={`${spaceGrotesk.className} tt-transition tt-boxed tt-smooth-scroll tt-magic-cursor`}>
         <main id="body-inner">
           {/* Page transition */}
           <div id="page-transition">
