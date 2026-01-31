@@ -4,6 +4,7 @@ import './globals.css';
 import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageTransition from '@/components/PageTransition';
 
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
 
@@ -50,10 +51,12 @@ export default function RootLayout({
 
           <div id="scroll-container">
             <Header />
-            <div id="content-wrap">
-              {children}
-              <Footer />
-            </div>
+            <PageTransition>
+              <div id="content-wrap">
+                {children}
+                <Footer />
+              </div>
+            </PageTransition>
           </div>
         </main>
 
