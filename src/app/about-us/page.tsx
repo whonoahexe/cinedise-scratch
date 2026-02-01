@@ -1,6 +1,143 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+
 export default function AboutUs() {
+    const contentCarouselRef = useRef<HTMLDivElement>(null);
+    const testimonialsSliderRef = useRef<HTMLDivElement>(null);
+    const contentSwiperInstance = useRef<unknown>(null);
+    const testimonialsSwiperInstance = useRef<unknown>(null);
+
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+
+        const initSwipers = () => {
+            if (
+                typeof window !== 'undefined' &&
+                (window as unknown as { Swiper?: unknown }).Swiper &&
+                (window as unknown as { $?: unknown }).$
+            ) {
+                const $ = (window as any).$;
+                const Swiper = (window as any).Swiper;
+
+                // Content Carousel (matching theme.js configuration)
+                if (contentCarouselRef.current) {
+                    const $carousel = $(contentCarouselRef.current);
+                    const swiperEl = $carousel.find('.swiper')[0];
+                    
+                    if (swiperEl && !(swiperEl as HTMLElement & { swiper?: unknown }).swiper) {
+                        // Destroy existing instance if any
+                        if (contentSwiperInstance.current) {
+                            (contentSwiperInstance.current as { destroy: (a: boolean, b: boolean) => void }).destroy(true, true);
+                        }
+                        
+                        contentSwiperInstance.current = new Swiper(swiperEl, {
+                            direction: 'horizontal',
+                            slidesPerView: 'auto',
+                            spaceBetween: 0,
+                            centeredSlides: true,
+                            longSwipesRatio: 0.3,
+                            mousewheel: false,
+                            keyboard: false,
+                            preloadImages: false,
+                            watchSlidesProgress: true,
+                            preventInteractionOnTransition: false,
+                            simulateTouch: true,
+                            grabCursor: true,
+                            speed: 900,
+                            lazy: {
+                                loadPrevNext: true,
+                                loadOnTransitionStart: true,
+                            },
+                            navigation: {
+                                nextEl: $carousel.find('.tt-cc-nav-next')[0],
+                                prevEl: $carousel.find('.tt-cc-nav-prev')[0],
+                                disabledClass: 'tt-cc-nav-arrow-disabled',
+                            },
+                            pagination: {
+                                el: $carousel.find('.tt-cc-pagination')[0],
+                                type: 'bullets',
+                                modifierClass: 'tt-cc-pagination-',
+                                dynamicBullets: true,
+                                dynamicMainBullets: 1,
+                                clickable: true,
+                            },
+                        });
+                    }
+                }
+
+                // Testimonials Slider (matching theme.js configuration)
+                if (testimonialsSliderRef.current) {
+                    const $slider = $(testimonialsSliderRef.current);
+                    const swiperEl = $slider.find('.swiper')[0];
+                    
+                    if (swiperEl && !(swiperEl as HTMLElement & { swiper?: unknown }).swiper) {
+                        // Destroy existing instance if any
+                        if (testimonialsSwiperInstance.current) {
+                            (testimonialsSwiperInstance.current as { destroy: (a: boolean, b: boolean) => void }).destroy(true, true);
+                        }
+                        
+                        const swiperInstance = new Swiper(swiperEl, {
+                            direction: 'horizontal',
+                            slidesPerView: 'auto',
+                            spaceBetween: 0,
+                            mousewheel: false,
+                            longSwipesRatio: 0.3,
+                            grabCursor: true,
+                            autoHeight: true,
+                            centeredSlides: true,
+                            preventInteractionOnTransition: false,
+                            speed: 900,
+                            simulateTouch: true,
+                            loop: { loopedSlides: 100 },
+                            navigation: {
+                                nextEl: $slider.find('.tt-ts-nav-next')[0],
+                                prevEl: $slider.find('.tt-ts-nav-prev')[0],
+                                disabledClass: 'tt-ts-nav-arrow-disabled',
+                            },
+                            pagination: {
+                                el: $slider.find('.tt-ts-pagination')[0],
+                                type: 'bullets',
+                                modifierClass: 'tt-ts-pagination-',
+                                dynamicBullets: true,
+                                dynamicMainBullets: 1,
+                                clickable: true,
+                            },
+                        });
+                        
+                        testimonialsSwiperInstance.current = swiperInstance;
+                        
+                        // Auto height fix (from theme.js)
+                        setTimeout(() => {
+                            if (swiperInstance.updateAutoHeight) {
+                                swiperInstance.updateAutoHeight();
+                            }
+                        }, 100);
+                    }
+                }
+            } else {
+                // Retry if dependencies not loaded
+                timeoutId = setTimeout(initSwipers, 100);
+            }
+        };
+
+        // Delay initial call to ensure DOM is ready
+        timeoutId = setTimeout(initSwipers, 200);
+
+        return () => {
+            clearTimeout(timeoutId);
+            if (contentSwiperInstance.current) {
+                (contentSwiperInstance.current as { destroy: (a: boolean, b: boolean) => void }).destroy(true, true);
+            }
+            if (testimonialsSwiperInstance.current) {
+                (testimonialsSwiperInstance.current as { destroy: (a: boolean, b: boolean) => void }).destroy(true, true);
+            }
+        };
+    }, []);
+
     return (
-        <div id="work">
+        <div id="page-content">
             {/* Introduction Section */}
             <div className="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
                 <div className="tt-section-inner tt-wrap">
@@ -24,14 +161,23 @@ export default function AboutUs() {
             {/* Content Carousel Section */}
             <div className="tt-section">
                 <div className="tt-section-inner">
-                    <div className="tt-content-carousel cc-shifted cursor-drag cc-scale-down cc-hide-pagination cc-hide-navigation" data-simulate-touch="true" data-speed="900">
+                    <div
+                        ref={contentCarouselRef}
+                        className="tt-content-carousel cc-shifted cursor-drag cc-scale-down cc-hide-pagination cc-hide-navigation"
+                        data-simulate-touch="true"
+                        data-speed="900"
+                    >
                         <div className="swiper">
                             <div className="swiper-wrapper">
                                 {[1, 2, 3, 4, 5, 6, 7].map((num) => (
                                     <div key={num} className="swiper-slide">
                                         <div className="tt-content-carousel-item">
                                             <figure className="cover-opacity-1">
-                                                <img className="tt-cc-image anim-image-parallax swiper-lazy" src={`https://cinedise-video.s3.eu-north-1.amazonaws.com/public/about/${num}.jpg`} data-src={`https://cinedise-video.s3.eu-north-1.amazonaws.com/public/about/${num}.jpg`} alt={`About Image ${num}`} />
+                                                <img
+                                                    className="tt-cc-image anim-image-parallax"
+                                                    src={`https://cinedise-video.s3.eu-north-1.amazonaws.com/public/about/${num}.jpg`}
+                                                    alt={`About Image ${num}`}
+                                                />
                                             </figure>
                                         </div>
                                     </div>
@@ -97,20 +243,26 @@ export default function AboutUs() {
                     </div>
 
                     <div className="tt-btn tt-btn-dark tt-btn-block margin-top-60 anim-fadeinup">
-                        <a href="/#team" data-hover="View Team">View Team</a>
+                        <Link href="/#team" data-hover="View Team">View Team</Link>
                     </div>
 
                     <div className="tt-heading tt-heading-xxlg tt-heading-stroke tt-heading-center margin-top-150 anim-fadeinup">
                         <h2 className="tt-heading-title">Why choose Cinedise?</h2>
-                        <h3 className="tt-heading-subtitle text-gray">With numerous studios available, it’s only natural to ask — why CINEDISE? Here’s what sets us apart:</h3>
+                        <h3 className="tt-heading-subtitle text-gray">With numerous studios available, it&apos;s only natural to ask — why CINEDISE? Here&apos;s what sets us apart:</h3>
                     </div>
                 </div>
             </div>
 
             {/* Testimonials Slider */}
             <div className="tt-section padding-top-xlg-150 padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p bg-white-accent-2">
-                <div className="tt-section-inner tt-wrapp">
-                    <div className="tt-testimonials-slider text-center cursor-drag ts-scale-down ts-hide-navigation anim-fadeinup" data-loop="true" data-simulate-touch="true" data-speed="900">
+                <div className="tt-section-inner tt-wrap">
+                    <div
+                        ref={testimonialsSliderRef}
+                        className="tt-testimonials-slider text-center cursor-drag ts-scale-down ts-hide-navigation anim-fadeinup"
+                        data-loop="true"
+                        data-simulate-touch="true"
+                        data-speed="900"
+                    >
                         <div className="swiper">
                             <div className="swiper-wrapper">
                                 <div className="swiper-slide font-alter">
@@ -121,8 +273,6 @@ export default function AboutUs() {
                                         <div className="tt-ts-subtext">Uncompromising Quality</div>
                                     </div>
                                 </div>
-                                {/* More slides can be added here following same pattern. For brevity using the few key ones needed or all. 
-                    Original had 5. I'll include them all for completeness. */}
                                 <div className="swiper-slide font-alter">
                                     <div className="tt-ts-item">
                                         <div className="tt-ts-text">
@@ -173,11 +323,11 @@ export default function AboutUs() {
             <div className="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
                 <div className="tt-section-inner tt-wrap">
                     <div className="tt-page-nav tt-pn-scroll">
-                        <a href="/contact" className="tt-pn-link anim-fadeinup">
+                        <Link href="/contact" className="tt-pn-link anim-fadeinup">
                             <div className="tt-pn-title">Contact</div>
                             <div className="tt-pn-hover-title">Contact</div>
-                        </a>
-                        <div className="tt-pn-subtitle anim-fadeinup">Let's make something great together!</div>
+                        </Link>
+                        <div className="tt-pn-subtitle anim-fadeinup">Let&apos;s make something great together!</div>
                         <div className="tt-pn-image">
                             <img src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/cursor.jpg" alt="image" />
                         </div>
