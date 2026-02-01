@@ -65,7 +65,7 @@ export default function FilmsPage() {
           </div>
         </div>
 
-        <a href="#page-content" className="scroll-down-circle" data-offset="30">
+        <a href="#work" className="scroll-down-circle" data-offset="30">
           <div className="sdc-inner ph-appear">
             <div className="sdc-icon">
               <i className="fas fa-chevron-down"></i>
@@ -98,7 +98,7 @@ export default function FilmsPage() {
         <ShareOverlay />
       </div>
 
-      <div id="page-content" className="!bg-[#0a0a0a]">
+      <div id="work" className="!bg-[#0a0a0a]">
         <div className="tt-section padding-top-xlg-180 padding-left-sm-3-p padding-right-sm-3-p">
           <div className="tt-section-inner tt-wrap">
             <div className="tt-row">

@@ -19,13 +19,13 @@ export default function Home() {
 
           <div className="explore-section" style={{ position: 'absolute', top: '80%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', zIndex: 2, display: 'none' }}>
             <h1 className="explore-text" style={{ color: 'white', fontSize: '48px', marginBottom: '20px', fontWeight: 300 }}>Explore</h1>
-            <a href="#page-content" className="scroll-down-btn" style={{ color: 'white', fontSize: '24px', textDecoration: 'none' }}>
+            <a href="#work" className="scroll-down-btn" style={{ color: 'white', fontSize: '24px', textDecoration: 'none' }}>
               <i className="fas fa-chevron-down"></i>
             </a>
           </div>
         </div>
 
-        <a href="#page-content" className="scroll-down-circle" data-offset="30">
+        <a href="#work" className="scroll-down-circle" data-offset="30">
           <div className="sdc-inner ph-appear">
             <div className="sdc-icon"><i className="fas fa-chevron-down"></i></div>
             <svg viewBox="0 0 500 500">
@@ -52,9 +52,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="page-content">
+      <div id="work">
         {/* Works Section */}
-        <div id="works" className="tt-section bg-white-accent-3 padding-top-xlg-150 !bg-[#121212]" style={{ scrollMarginTop: '100px' }} data-offset="100">
+        <div id="work" className="tt-section bg-white-accent-3 padding-top-xlg-150 !bg-[#121212]" style={{ scrollMarginTop: '100px' }} data-offset="100">
           <div className="tt-section-inner tt-wrap max-width-1700">
             <div className="tt-heading tt-heading-lg tt-heading-center margin-bottom-7-p anim-fadeinup">
               <h3 className="tt-heading-subtitle text-gray">Latest Projects</h3>

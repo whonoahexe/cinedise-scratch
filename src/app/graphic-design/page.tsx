@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import NextCategoryNav from "@/components/NextCategoryNav";
 
 export default function GraphicDesignPage() {
@@ -28,7 +27,7 @@ export default function GraphicDesignPage() {
           </div>
         </div>
 
-        <a href="#page-content" className="scroll-down-circle" data-offset="30">
+        <a href="#work" className="scroll-down-circle" data-offset="30">
           <div className="sdc-inner ph-appear">
             <div className="sdc-icon">
               <i className="fas fa-chevron-down"></i>
@@ -51,8 +50,8 @@ export default function GraphicDesignPage() {
       </div>
 
       {/* Page Content */}
-      <div id="page-content">
-        <div className="tt-section">
+      <div id="work">
+        <div className="tt-section padding-top-xlg-150">
           <div className="tt-section-inner">
             <div id="portfolio-grid" className="pgi-cap-inside pgi-cap-hover">
               <div className="tt-grid ttgr-layout-1-2 ttgr-gap-4">

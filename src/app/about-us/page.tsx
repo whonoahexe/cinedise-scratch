@@ -1,6 +1,6 @@
 export default function AboutUs() {
     return (
-        <div id="page-content">
+        <div id="work">
             {/* Introduction Section */}
             <div className="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
                 <div className="tt-section-inner tt-wrap">

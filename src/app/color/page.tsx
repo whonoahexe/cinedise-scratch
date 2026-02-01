@@ -1,43 +1,202 @@
+"use client";
 
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 
 export default function ColorPage() {
-    return (
-        <div id="page-content">
-            <div className="tt-portfolio-slider cursor-drag-mouse-down" data-speed="1000" data-mousewheel="true" data-keyboard="true" data-simulate-touch="true" data-grab-cursor="true" data-pagination-type="fraction" data-parallax-mouse-move="true">
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const swiperInstance = useRef<any>(null);
 
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+
+        const initSlider = () => {
+            if (
+                typeof window !== 'undefined' &&
+                (window as any).Swiper &&
+                (window as any).gsap &&
+                sliderRef.current
+            ) {
+                const $ = (window as any).$;
+                const Swiper = (window as any).Swiper;
+                const gsap = (window as any).gsap;
+                const Power1 = (window as any).Power1;
+
+                // Destroy existing instance if any
+                if (swiperInstance.current) {
+                    swiperInstance.current.destroy(true, true);
+                }
+
+                const $slider = $(sliderRef.current);
+
+                // Init Swiper
+                swiperInstance.current = new Swiper($slider.find('.swiper')[0], {
+                    direction: 'horizontal',
+                    effect: 'slide',
+                    speed: 600,
+                    parallax: true,
+                    resistanceRatio: 0,
+                    longSwipesRatio: 0.02,
+                    preloadImages: false,
+                    preventInteractionOnTransition: true,
+                    mousewheel: true,
+                    keyboard: true,
+                    simulateTouch: true,
+                    grabCursor: true,
+
+                    breakpoints: {
+                        1025: {
+                            speed: 1000,
+                        },
+                    },
+
+                    lazy: {
+                        loadPrevNext: true,
+                        loadOnTransitionStart: true,
+                    },
+
+                    navigation: {
+                        nextEl: $slider.find('.tt-ps-nav-arrow-next')[0],
+                        prevEl: $slider.find('.tt-ps-nav-arrow-prev')[0],
+                        disabledClass: 'tt-ps-nav-arrow-disabled',
+                    },
+
+                    pagination: {
+                        el: $slider.find('.tt-ps-nav-pagination')[0],
+                        type: 'fraction',
+                        modifierClass: 'tt-ps-nav-pagination-',
+                        dynamicBullets: true,
+                        dynamicMainBullets: 1,
+                        clickable: true,
+                    },
+
+                    on: {
+                        init: function (swiper: any) {
+                            const $slideActive = $(swiper.slides[swiper.activeIndex]);
+
+                            // Play video on load
+                            $slideActive.find('video').each(function (this: HTMLVideoElement) {
+                                this.play().catch(() => {});
+                            });
+
+                            // Update caption
+                            $slider.find('.tt-ps-caption-title').text($slideActive.attr('data-title') || '');
+                            $slider.find('.tt-ps-caption-category').text($slideActive.attr('data-category') || '');
+                        },
+
+                        transitionStart: function (swiper: any) {
+                            const $slideActive = $(swiper.slides[swiper.activeIndex]);
+
+                            // Play video
+                            $slideActive.find('video').each(function (this: HTMLVideoElement) {
+                                this.play().catch(() => {});
+                            });
+
+                            // Animate caption out
+                            gsap.fromTo(
+                                $slider.find('.tt-psc-elem'),
+                                { autoAlpha: 1, y: 0 },
+                                {
+                                    duration: 0.25,
+                                    autoAlpha: 0,
+                                    y: -30,
+                                    stagger: 0.15,
+                                    ease: Power1?.easeIn || 'power1.in',
+                                }
+                            );
+                        },
+
+                        transitionEnd: function (swiper: any) {
+                            const $slideActive = $(swiper.slides[swiper.activeIndex]);
+
+                            // Pause videos in non-active slides
+                            $slideActive.prevAll().find('video').each(function (this: HTMLVideoElement) {
+                                this.pause();
+                            });
+                            $slideActive.nextAll().find('video').each(function (this: HTMLVideoElement) {
+                                this.pause();
+                            });
+
+                            // Update caption
+                            $slider.find('.tt-ps-caption-title').text($slideActive.attr('data-title') || '');
+                            $slider.find('.tt-ps-caption-category').text($slideActive.attr('data-category') || '');
+
+                            // Animate caption in
+                            gsap.fromTo(
+                                $slider.find('.tt-psc-elem'),
+                                { autoAlpha: 0, y: 30 },
+                                {
+                                    duration: 0.25,
+                                    autoAlpha: 1,
+                                    y: 0,
+                                    stagger: 0.15,
+                                    ease: Power1?.easeOut || 'power1.out',
+                                }
+                            );
+                        },
+                    },
+                });
+            } else {
+                // Retry if dependencies not loaded
+                timeoutId = setTimeout(initSlider, 100);
+            }
+        };
+
+        timeoutId = setTimeout(initSlider, 200);
+
+        return () => {
+            clearTimeout(timeoutId);
+            if (swiperInstance.current) {
+                swiperInstance.current.destroy(true, true);
+            }
+        };
+    }, []);
+
+    return (
+        <div id="work">
+            <div
+                ref={sliderRef}
+                className="tt-portfolio-slider cursor-drag-mouse-down"
+                data-speed="1000"
+                data-mousewheel="true"
+                data-keyboard="true"
+                data-simulate-touch="true"
+                data-grab-cursor="true"
+                data-pagination-type="fraction"
+                data-parallax-mouse-move="true"
+            >
                 {/* Begin swiper container */}
                 <div className="swiper">
-
                     {/* Begin swiper wrapper */}
                     <div className="swiper-wrapper">
-
                         {/* Slide 1: The Unequals */}
                         <div className="swiper-slide" data-title="The Unequals | Color" data-category="Grading">
-                            <video className="tt-bg-video" loop muted preload="metadata">
-                                <source src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/color/the-unequals.mp4" type="video/mp4" />
-                            </video>
+                            <div className="tt-portfolio-slider-item cover-opacity-3" data-swiper-parallax="50%">
+                                <video className="tt-bg-video" loop muted playsInline preload="metadata">
+                                    <source src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/color/the-unequals.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
 
                         {/* Slide 2: Atomic Brew */}
                         <div className="swiper-slide" data-title="Atomic Brew | Color" data-category="Grading">
-                            <video className="tt-bg-video" loop muted preload="metadata">
-                                <source src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/color/atomic-brew.mp4" type="video/mp4" />
-                            </video>
+                            <div className="tt-portfolio-slider-item cover-opacity-3" data-swiper-parallax="50%">
+                                <video className="tt-bg-video" loop muted playsInline preload="metadata">
+                                    <source src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/color/atomic-brew.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
 
                         {/* Slide 3: Aminova 25 */}
                         <div className="swiper-slide" data-title="Aminova 25 | Color" data-category="Grading">
                             <div className="tt-portfolio-slider-item cover-opacity-3" data-swiper-parallax="50%">
-                                <video className="tt-bg-video" loop muted preload="metadata">
+                                <video className="tt-bg-video" loop muted playsInline preload="metadata">
                                     <source src="https://cinedise-video.s3.eu-north-1.amazonaws.com/public/color/aminova-25.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </div>
-
                     </div>
                     {/* End swiper wrapper */}
-
                 </div>
                 {/* End swiper container */}
 
@@ -59,7 +218,6 @@ export default function ColorPage() {
                     </div>
                     <div className="tt-ps-nav-pagination"></div>
                 </div>
-
             </div>
 
             {/* Footer absolute for this page as per legacy */}
@@ -87,7 +245,6 @@ export default function ColorPage() {
                     </div>
                 </div>
             </footer>
-
         </div>
     );
 }

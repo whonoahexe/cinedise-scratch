@@ -2,7 +2,7 @@ import ContactForm from '@/components/ContactForm';
 
 export default function Contact() {
     return (
-        <div id="page-content">
+        <div id="work">
             {/* Contact Section */}
             <div className="tt-section">
                 <div className="tt-section-inner tt-wrap padding-top-150">
@@ -49,7 +49,7 @@ export default function Contact() {
             <div className="tt-section padding-bottom-xlg-150">
                 <div className="tt-section-inner tt-wrap">
                     <div className="tt-page-nav tt-pn-scroll">
-                        <a href="/#page-content" className="tt-pn-link anim-fadeinup">
+                        <a href="/#work" className="tt-pn-link anim-fadeinup">
                             <div className="tt-pn-title">Portfolio</div>
                             <div className="tt-pn-hover-title">Portfolio</div>
                         </a>

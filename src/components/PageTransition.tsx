@@ -120,8 +120,8 @@ export default function PageTransition({ children }: PageTransitionProps) {
       try {
         type AppearConfig = {
           selector: string;
-          fromVars: gsap.TweenVars;
-          toVars: gsap.TweenVars;
+          fromVars: any;
+          toVars: any;
           start?: string;
         };
 

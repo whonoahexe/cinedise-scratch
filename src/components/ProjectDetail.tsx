@@ -71,7 +71,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                     </div>
                 </div>
 
-                <a href="#page-content" className="scroll-down-circle" data-offset="30">
+                <a href="#work" className="scroll-down-circle" data-offset="30">
                     <div className="sdc-inner ph-appear">
                         <div className="sdc-icon"><i className="fas fa-chevron-down"></i></div>
                         <svg viewBox="0 0 500 500">
@@ -108,7 +108,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
             </div>
 
             {/* Page Content */}
-            <div id="page-content">
+            <div id="work">
                 {/* Video Popup Overlay */}
                 {/* Using a simplified version of the popup logic for React */}
                 {isVideoOpen && (
@@ -219,6 +219,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 </div>
 
                 {/* Gallery Section */}
+                {project.galleryImages.length > 0 && (
                 <div className="tt-section">
                     <div className="tt-section-inner max-width-3000">
                         <div className="tt-gallery ttga-hover">
@@ -253,6 +254,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                         </div>
                     </div>
                 </div>
+                )}
 
                 {/* Next Project Section */}
                 <div className="tt-section padding-top-xlg-150 padding-bottom-xlg-150">

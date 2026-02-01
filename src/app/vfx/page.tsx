@@ -80,8 +80,8 @@ export default function VfxPage() {
               swiperInstance.current?.update();
             },
 
-            init: function () {
-              const slideActive = $(this.slides[this.activeIndex]);
+            init: function (swiper: any) {
+              const slideActive = $(swiper.slides[swiper.activeIndex]);
               slideActive.addClass("tt-slide-active");
               slideActive.prevAll().addClass("tt-pcs-disabled");
               slideActive.nextAll().addClass("tt-pcs-disabled");
@@ -92,8 +92,8 @@ export default function VfxPage() {
               });
             },
 
-            transitionStart: function () {
-              const slideActive = $(this.slides[this.activeIndex]);
+            transitionStart: function (swiper: any) {
+              const slideActive = $(swiper.slides[swiper.activeIndex]);
               slideActive.addClass("tt-slide-active");
               slideActive.prev().addClass("tt-slide-active-start");
               slideActive.next().addClass("tt-slide-active-start");
@@ -111,8 +111,8 @@ export default function VfxPage() {
               $(".tt-pc-arrow").addClass("tt-pc-arrow-disabled");
             },
 
-            transitionEnd: function () {
-              const slideActive = $(this.slides[this.activeIndex]);
+            transitionEnd: function (swiper: any) {
+              const slideActive = $(swiper.slides[swiper.activeIndex]);
               slideActive.prevAll().removeClass("tt-slide-active");
               slideActive.nextAll().removeClass("tt-slide-active");
               slideActive.prev().removeClass("tt-slide-active-start");
@@ -175,7 +175,7 @@ export default function VfxPage() {
   }, []);
 
   return (
-    <div id="page-content">
+    <div id="work">
       <div
         ref={carouselRef}
         className="tt-portfolio-carousel pci-caption-center cursor-drag-mouse-down pc-scale-down"
@@ -211,6 +211,7 @@ export default function VfxPage() {
                           muted
                           playsInline
                           preload="metadata"
+                          suppressHydrationWarning
                         >
                           <source src={previewVideo} type="video/mp4" />
                         </video>
@@ -265,69 +266,6 @@ export default function VfxPage() {
           <div className="tt-pc-pagination"></div>
         </div>
       </div>
-
-      <footer id="tt-footer">
-        <div className="tt-footer-inner">
-          <div className="footer-col tt-align-center-left">
-            <div className="footer-col-inner">
-              <div className="tt-btn tt-btn-link">
-                <a href="#" className="scroll-to-top" data-hover="Back to top">
-                  Back to top
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="footer-col tt-align-center order-m-last">
-            <div className="footer-col-inner">
-              <div className="tt-copyright">
-                © Copyright -{" "}
-                <a
-                  href="https://cinedise.studio"
-                  target="_blank"
-                  rel="noopener"
-                  className="tt-link"
-                >
-                  cinedise.studio
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="footer-col tt-align-center-right">
-            <div className="footer-col-inner">
-              <div className="footer-social">
-                <div className="footer-social-text">
-                  <span>Follow</span>
-                  <i className="fas fa-share-alt"></i>
-                </div>
-                <div className="social-buttons">
-                  <ul>
-                    <li>
-                      <a
-                        href="https://www.instagram.com/cinedisestudio"
-                        className="magnetic-item"
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        Ig.
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://youtube.com/@cinedise?si=gV6O790ZKDjIDTj5"
-                        className="magnetic-item"
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        Yt.
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

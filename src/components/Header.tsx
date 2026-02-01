@@ -241,7 +241,7 @@ export default function Header() {
                     <li className="tt-ol-submenu-wrap">
                       <div className="tt-ol-submenu-trigger">
                         <Link
-                          href={pathname === "/" ? "#works" : "/#works"}
+                          href={pathname === "/" ? "#work" : "/#work"}
                           onClick={handleMenuClick}
                         >
                           Portfolio

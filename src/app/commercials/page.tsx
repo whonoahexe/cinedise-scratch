@@ -33,7 +33,7 @@ export default function CommercialsPage() {
           </div>
         </div>
 
-        <a href="#page-content" className="scroll-down-circle" data-offset="30">
+        <a href="#work" className="scroll-down-circle" data-offset="30">
           <div className="sdc-inner ph-appear">
             <div className="sdc-icon">
               <i className="fas fa-chevron-down"></i>
@@ -56,8 +56,8 @@ export default function CommercialsPage() {
       </div>
 
       {/* Page Content */}
-      <div id="page-content">
-        <div id="sdc-target" className="tt-section padding-bottom-150">
+      <div id="work">
+        <div id="sdc-target" className="tt-section padding-top-xlg-150 padding-bottom-150">
           <div className="tt-section-inner">
             <div className="portfolio-list pli-cropped pl-compact pli-hover">
               {commercialProjects.map((project, index) => (

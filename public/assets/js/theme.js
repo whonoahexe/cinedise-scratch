@@ -322,7 +322,7 @@
 
       // Page other elements appear
       tl_transitOut.from(
-        "#page-content",
+        "#work",
         {
           duration: 1.5,
           autoAlpha: 0,

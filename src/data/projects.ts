@@ -399,9 +399,8 @@ export const projects: Project[] = [
         year: '2024',
         headerImage: 'https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/wedding-reel/thumbnail.jpg',
         description: 'A beautiful wedding reel focusing on capturing the special moments and emotions of the day.',
-        galleryImages: [
-            'https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/wedding-reel/1.mp4',
-        ],
+        videoEmbedUrl: 'https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/wedding-reel/1.mp4',
+        galleryImages: [],
         nextProject: {
             slug: 'monsoon-in-mumbai',
             title: 'Monsoon in Mumbai',
@@ -415,9 +414,8 @@ export const projects: Project[] = [
         year: '2024',
         headerImage: 'https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/monsoon-in-mumbai/thumbnail.jpg',
         description: 'Capturing the essence and beauty of Mumbai during the monsoon season.',
-        galleryImages: [
-            'https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/monsoon-in-mumbai/1.mp4',
-        ],
+        videoEmbedUrl: 'https://cinedise-video.s3.eu-north-1.amazonaws.com/public/social-media/monsoon-in-mumbai/1.mp4',
+        galleryImages: [],
         nextProject: {
             slug: 'wedding-reel',
             title: 'Wedding Reel',
